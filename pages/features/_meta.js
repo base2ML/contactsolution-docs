@@ -1,6 +1,6 @@
 export default {
   free: 'Free Tier',
-  pro: 'Pro ($24/mo)',
+  pro: 'Pro ($29/mo)',
   seeme: {
     title: 'SeeMe (Legacy)',
     display: 'hidden'
