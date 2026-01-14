@@ -1,0 +1,194 @@
+# Lead Capture Forms
+
+Turn your digital card into a lead generation machine with built-in contact forms.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Lead capture is available on all tiers. Email notifications are included free, and webhook automations require **Pro** tier.
+</Callout>
+
+## What Are Lead Capture Forms?
+
+When someone views your card, they can submit a contact form to reach out to you. This creates a **lead** that you can manage, track, and follow up on.
+
+### Benefits
+
+- **Never miss a connection** - Get notified instantly when someone wants to connect
+- **Capture context** - See what message they sent and what card they found you through
+- **Track everything** - Monitor lead status from new → contacted → converted
+- **Automate follow-ups** - Trigger webhooks to Zapier, HubSpot, Slack, and more
+
+## How It Works
+
+1. Visitor scans your QR code or clicks your card link
+2. They view your card and click "Contact Me"
+3. They fill out the form (name, email, optional phone/message)
+4. You receive an instant email notification
+5. Lead appears in your dashboard for follow-up
+6. (Pro) Webhooks fire to your connected apps
+
+## Setting Up Lead Capture
+
+### Enable the Contact Form
+
+Lead capture is enabled by default on all cards. To verify:
+
+1. Go to **Dashboard** → **My Cards**
+2. Click on a card to edit
+3. Scroll to **Contact Settings**
+4. Ensure "Enable Contact Form" is toggled on
+
+### Customize the Form
+
+You can customize what information visitors can submit:
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| **Name** | Yes | Always required |
+| **Email** | Yes | For follow-up contact |
+| **Phone** | Optional | Toggle in settings |
+| **Company** | Optional | Useful for B2B |
+| **Message** | Optional | Let them explain why they're reaching out |
+
+## Managing Leads
+
+### Viewing Your Leads
+
+1. Go to **Dashboard** → **Leads**
+2. See all leads across all your cards
+3. Filter by status: New, Contacted, Converted, Archived
+
+### Lead Status Workflow
+
+| Status | Meaning |
+|--------|---------|
+| **New** | Just captured, needs attention |
+| **Contacted** | You've reached out |
+| **Converted** | Successful connection or deal |
+| **Archived** | No longer active |
+
+### Taking Action on Leads
+
+For each lead, you can:
+
+- **View details** - See full submission including message
+- **Update status** - Move through your pipeline
+- **Add notes** - Record follow-up details
+- **Delete** - Remove unwanted leads
+
+## Email Notifications
+
+When someone submits a contact form, you'll receive an email with:
+
+- Lead's name and contact info
+- Which card they contacted you through
+- Their message (if provided)
+- Direct link to the lead in your dashboard
+
+<Callout type="tip">
+  Check your spam folder if you're not receiving notifications. Add `noreply@contactsolution.io` to your contacts.
+</Callout>
+
+## Webhook Automations
+
+<Callout type="info">
+  Webhook automations require **Pro** tier.
+</Callout>
+
+Automatically send leads to your favorite tools:
+
+### Zapier Integration
+
+Connect to 5,000+ apps including:
+
+- **CRM** - Salesforce, HubSpot, Pipedrive
+- **Email** - Gmail, Mailchimp, ConvertKit
+- **Productivity** - Slack, Notion, Airtable
+- **Spreadsheets** - Google Sheets, Excel
+
+### Setting Up Webhook Automations
+
+1. Go to **Dashboard** → **Settings** → **Webhooks**
+2. Click **"Create Webhook"**
+3. Enter your webhook URL (e.g., Zapier webhook URL)
+4. Select **"Lead Captured"** event
+5. Click **"Save"**
+
+### Lead Captured Event Payload
+
+```json
+{
+  "event": "lead_captured",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "data": {
+    "card": {
+      "id": "card_abc123",
+      "name": "John Smith - Sales"
+    },
+    "lead": {
+      "lead_id": "lead_xyz789",
+      "name": "Jane Doe",
+      "email": "jane@company.com",
+      "phone": "+1-555-0123",
+      "company": "Acme Corp",
+      "message": "Interested in discussing partnership opportunities",
+      "source": "contact_form",
+      "captured_at": "2024-01-15T10:30:00Z"
+    }
+  }
+}
+```
+
+[Full webhook documentation →](/how-to/webhooks)
+
+## Best Practices
+
+### Optimize Your Card for Leads
+
+1. **Professional photo** - People connect with faces
+2. **Clear value proposition** - Why should they contact you?
+3. **Multiple contact options** - Form, email, phone, social
+4. **Call to action** - Encourage them to reach out
+
+### Follow Up Quickly
+
+- **Within 5 minutes** - 9x more likely to convert
+- **Within 1 hour** - Still very effective
+- **Same day** - Minimum recommended
+
+### Track Your Metrics
+
+Monitor in your dashboard:
+
+- Total leads captured
+- Conversion rate by card
+- Best performing cards
+- Lead sources (QR, link, social)
+
+## Troubleshooting
+
+### Not Receiving Leads
+
+1. Verify contact form is enabled on your card
+2. Check your email spam folder
+3. Ensure your email is verified in account settings
+
+### Leads Not Appearing in Dashboard
+
+1. Refresh the page
+2. Check you're viewing the correct card
+3. Clear browser cache if needed
+
+### Webhook Not Firing
+
+1. Verify webhook is active (not paused)
+2. Check webhook URL is correct
+3. Ensure "Lead Captured" event is selected
+4. Test the webhook from settings
+
+## Related Guides
+
+- **[Webhooks](/how-to/webhooks)** - Full webhook documentation
+- **[Analytics](/how-to/analytics)** - Track card performance
+- **[Integrations](/how-to/integrations)** - CRM and export options

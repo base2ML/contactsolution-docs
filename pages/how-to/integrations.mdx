@@ -1,0 +1,177 @@
+# Integrations
+
+Connect ContactSolution to your favorite tools for automated workflows.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  CRM integrations require **Pro tier**. Export tools are available for Pro users.
+</Callout>
+
+## CRM Integrations
+
+### Salesforce
+
+Connect to sync contacts and track engagement in Salesforce.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **Salesforce**
+2. Click **"Connect Salesforce"**
+3. Log in to your Salesforce account
+4. Authorize ContactSolution access
+
+**What Syncs:**
+- New placement engagements create Leads or Contacts
+- Contact information (name, email, phone, company)
+- Engagement activity logged as Tasks
+- Source tracking (which placement was scanned)
+
+**Configuration Options:**
+| Setting | Description |
+|---------|-------------|
+| Create as | Lead or Contact |
+| Owner | Default record owner |
+| Lead Source | Auto-set to "ContactSolution" |
+| Sync Frequency | Real-time or daily batch |
+
+### HubSpot
+
+Sync contacts and trigger marketing automation.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **HubSpot**
+2. Click **"Connect HubSpot"**
+3. Authorize with your HubSpot account
+
+**What Syncs:**
+- Placement engagements create Contacts
+- Contact properties mapped automatically
+- Activity timeline updated
+- List membership (optional)
+
+**Automation Ideas:**
+- Add new contacts to nurture sequences
+- Trigger follow-up reminders
+- Update lead scores based on engagement
+
+### Pipedrive
+
+Track leads and manage your sales pipeline.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **Pipedrive**
+2. Click **"Connect Pipedrive"**
+3. Enter your API key or OAuth
+
+**What Syncs:**
+- Placement engagements create Persons
+- Deals can be auto-created (optional)
+- Activities logged for engagement
+
+## Export Integrations
+
+### Google Sheets
+
+Export contacts to a spreadsheet that updates automatically.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **Google Sheets**
+2. Click **"Connect Google Sheets"**
+3. Authorize access to your Google account
+4. Select an existing sheet or create new
+
+**Sync Options:**
+- **Real-time** - New contacts added immediately
+- **Daily** - Batch export at midnight
+- **Manual** - Export on demand
+
+**Columns Exported:**
+```
+Name | Email | Phone | Company | Job Title | Placement | Campaign | Date | Source
+```
+
+### Notion
+
+Sync contacts to a Notion database.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **Notion**
+2. Click **"Connect Notion"**
+3. Select workspace and database
+
+**Database Properties:**
+| Property | Type |
+|----------|------|
+| Name | Title |
+| Email | Email |
+| Phone | Phone |
+| Company | Text |
+| Source Placement | Text |
+| View Date | Date |
+| Device | Select |
+
+<Callout type="tip">
+  Create a Notion database first with the expected properties for smoother setup.
+</Callout>
+
+### Airtable
+
+Export to Airtable bases for advanced workflows.
+
+**Setup:**
+1. Go to **Dashboard** → **Integrations** → **Airtable**
+2. Click **"Connect Airtable"**
+3. Enter your API key
+4. Select base and table
+
+**Supported Field Types:**
+- Single line text
+- Email
+- Phone
+- Date
+- Single select
+
+## Managing Integrations
+
+### Viewing Connected Integrations
+
+Go to **Dashboard** → **Integrations** to see:
+- All connected services
+- Last sync status
+- Sync frequency
+- Error notifications
+
+### Disconnecting
+
+1. Go to **Dashboard** → **Integrations**
+2. Find the integration
+3. Click **"Disconnect"**
+4. Confirm removal
+
+<Callout type="warning">
+  Disconnecting doesn't delete previously synced data from the external service.
+</Callout>
+
+### Troubleshooting
+
+**Sync Not Working:**
+1. Check that the integration shows "Connected"
+2. Verify credentials haven't expired
+3. Reconnect if necessary
+
+**Missing Data:**
+1. Check field mappings in integration settings
+2. Ensure required fields have values
+3. Review error logs in Dashboard
+
+**Authentication Errors:**
+1. Disconnect the integration
+2. Re-authorize with fresh login
+3. Contact support if issues persist
+
+## Integration Limits
+
+| Tier | CRM Integrations | Export Tools |
+|------|-----------------|--------------|
+| Free | - | - |
+| Pro | 3 | All |

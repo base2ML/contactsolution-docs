@@ -1,0 +1,289 @@
+# Cards API
+
+Create, read, update, and delete digital contact cards.
+
+## List Cards
+
+```
+GET /cards
+```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | integer | Page number (default: 1) |
+| `per_page` | integer | Items per page (default: 20, max: 100) |
+| `search` | string | Search by name or email |
+
+**Example Request:**
+
+```bash
+curl https://api.contactsolution.io/v1/cards?page=1&per_page=20 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "card_abc123",
+      "name": "John Smith",
+      "email": "john@example.com",
+      "title": "CEO",
+      "company": "Acme Corp",
+      "phone": "+1-555-0100",
+      "photo_url": "https://cdn.contactsolution.io/photos/abc123.jpg",
+      "social_links": [
+        { "type": "linkedin", "url": "https://linkedin.com/in/johnsmith" }
+      ],
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-15T10:30:00Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "current_page": 1,
+      "per_page": 20,
+      "total_pages": 3,
+      "total_count": 47
+    }
+  }
+}
+```
+
+## Get a Card
+
+```
+GET /cards/:id
+```
+
+**Example Request:**
+
+```bash
+curl https://api.contactsolution.io/v1/cards/card_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "card_abc123",
+    "name": "John Smith",
+    "email": "john@example.com",
+    "title": "CEO",
+    "company": "Acme Corp",
+    "phone": "+1-555-0100",
+    "website": "https://johnsmith.com",
+    "bio": "Building the future of business networking.",
+    "photo_url": "https://cdn.contactsolution.io/photos/abc123.jpg",
+    "social_links": [
+      { "type": "linkedin", "url": "https://linkedin.com/in/johnsmith" },
+      { "type": "twitter", "url": "https://twitter.com/johnsmith" }
+    ],
+    "public_url": "https://seeme.contactsolution.io/card/card_abc123",
+    "qr_code_url": "https://cdn.contactsolution.io/qr/abc123.png",
+    "views": 142,
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+## Create a Card
+
+```
+POST /cards
+```
+
+**Request Body:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Display name |
+| `email` | string | Yes | Primary email |
+| `title` | string | No | Job title |
+| `company` | string | No | Company name |
+| `phone` | string | No | Phone number |
+| `website` | string | No | Website URL |
+| `bio` | string | No | Short bio (max 160 chars) |
+| `photo_url` | string | No | Profile photo URL |
+| `social_links` | array | No | Array of social links |
+
+**Example Request:**
+
+```bash
+curl -X POST https://api.contactsolution.io/v1/cards \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Jane Doe",
+    "email": "jane@techco.io",
+    "title": "CTO",
+    "company": "TechCo",
+    "phone": "+1-555-0101",
+    "social_links": [
+      { "type": "linkedin", "url": "https://linkedin.com/in/janedoe" }
+    ]
+  }'
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "card_def456",
+    "name": "Jane Doe",
+    "email": "jane@techco.io",
+    "title": "CTO",
+    "company": "TechCo",
+    "phone": "+1-555-0101",
+    "social_links": [
+      { "type": "linkedin", "url": "https://linkedin.com/in/janedoe" }
+    ],
+    "public_url": "https://seeme.contactsolution.io/card/card_def456",
+    "qr_code_url": "https://cdn.contactsolution.io/qr/def456.png",
+    "created_at": "2024-01-15T11:00:00Z",
+    "updated_at": "2024-01-15T11:00:00Z"
+  }
+}
+```
+
+## Update a Card
+
+```
+PATCH /cards/:id
+```
+
+Only include fields you want to update.
+
+**Example Request:**
+
+```bash
+curl -X PATCH https://api.contactsolution.io/v1/cards/card_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Founder & CEO",
+    "bio": "Serial entrepreneur and tech enthusiast."
+  }'
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "card_abc123",
+    "name": "John Smith",
+    "email": "john@example.com",
+    "title": "Founder & CEO",
+    "bio": "Serial entrepreneur and tech enthusiast.",
+    ...
+  }
+}
+```
+
+## Delete a Card
+
+```
+DELETE /cards/:id
+```
+
+**Example Request:**
+
+```bash
+curl -X DELETE https://api.contactsolution.io/v1/cards/card_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "card_abc123",
+    "deleted": true
+  }
+}
+```
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  Deleting a card is permanent. All analytics data is also deleted.
+</Callout>
+
+## Get Card Analytics
+
+```
+GET /cards/:id/analytics
+```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `start_date` | string | Start date (YYYY-MM-DD) |
+| `end_date` | string | End date (YYYY-MM-DD) |
+
+**Example Request:**
+
+```bash
+curl "https://api.contactsolution.io/v1/cards/card_abc123/analytics?start_date=2024-01-01&end_date=2024-01-31" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "views": {
+      "total": 142,
+      "unique": 98
+    },
+    "by_device": {
+      "mobile": 87,
+      "desktop": 51,
+      "tablet": 4
+    },
+    "by_source": {
+      "qr_code": 62,
+      "direct_link": 45,
+      "email_signature": 35
+    },
+    "by_day": [
+      { "date": "2024-01-01", "views": 12 },
+      { "date": "2024-01-02", "views": 8 }
+    ]
+  }
+}
+```
+
+## Social Link Types
+
+Supported social link types:
+
+| Type | Description |
+|------|-------------|
+| `linkedin` | LinkedIn profile |
+| `twitter` | Twitter/X profile |
+| `instagram` | Instagram profile |
+| `facebook` | Facebook profile |
+| `github` | GitHub profile |
+| `youtube` | YouTube channel |
+| `tiktok` | TikTok profile |
+| `website` | Personal website |
+| `other` | Custom link |

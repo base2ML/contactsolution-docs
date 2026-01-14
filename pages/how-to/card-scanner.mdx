@@ -1,0 +1,90 @@
+# Card Scanner
+
+Scan physical business cards and convert them to digital contacts instantly.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Card Scanner is available on all tiers, with enhanced OCR on Pro tier.
+</Callout>
+
+## Overview
+
+The Card Scanner uses AI-powered OCR (Optical Character Recognition) to extract contact information from physical business cards. Simply snap a photo and let the system automatically parse names, emails, phone numbers, and more.
+
+## How to Scan a Card
+
+1. Navigate to **Dashboard** → **Scanner**
+2. Click **Scan New Card** or drag-and-drop an image
+3. Position the card within the camera frame
+4. The scanner automatically:
+   - Detects card boundaries
+   - Extracts text using OCR
+   - Parses fields intelligently
+
+## Supported Information
+
+The scanner extracts and categorizes:
+
+| Field | Detection Rate |
+|-------|---------------|
+| **Name** | 98% |
+| **Email** | 99% |
+| **Phone** | 97% |
+| **Company** | 95% |
+| **Title** | 90% |
+| **Website** | 94% |
+| **Address** | 88% |
+
+## Scan Quality Tips
+
+For best results:
+
+- **Good lighting** - Avoid shadows on the card
+- **Flat surface** - Keep the card level, not curved
+- **High contrast** - Light cards on dark backgrounds work best
+- **Focus** - Ensure text is sharp, not blurry
+- **Full card** - Include all edges in the frame
+
+## Editing Scanned Information
+
+After scanning:
+
+1. Review the extracted fields
+2. Click any field to edit
+3. Add missing information manually
+4. Click **Save Contact** when ready
+
+## Actions After Scanning
+
+Once saved, you can:
+
+- **Add to connections** - Save to your contacts
+- **Send follow-up** - Trigger an automated campaign
+- **Export** - Download as vCard or CSV
+- **Create card** - Generate a digital card for them
+
+## Batch Scanning
+
+For multiple cards:
+
+1. Enable **Batch Mode** in scanner settings
+2. Scan cards in succession
+3. Review all at once in the queue
+4. Approve or edit before saving
+
+## Privacy & Storage
+
+<Callout type="warning">
+  Scanned images are processed locally when possible. Images are not stored after OCR extraction.
+</Callout>
+
+- Card images are not retained after processing
+- Extracted data is encrypted at rest
+- You control data retention in Settings > Privacy
+
+## Related
+
+- [Connections Guide](/getting-started/sharing-your-card) - Managing your contacts
+- [Campaigns](/how-to/campaigns) - Automated follow-ups
+- [Integrations](/how-to/integrations) - Export to CRM

@@ -1,0 +1,309 @@
+# Events API
+
+Manage events and attendees for conferences, trade shows, and meetings.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  The Events API is available for **Pro** tier only.
+</Callout>
+
+## List Events
+
+```
+GET /events
+```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | integer | Page number |
+| `per_page` | integer | Items per page |
+| `status` | string | Filter by status: `upcoming`, `active`, `completed` |
+
+**Example Request:**
+
+```bash
+curl https://api.contactsolution.io/v1/events \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "evt_abc123",
+      "name": "Tech Conference 2024",
+      "description": "Annual technology conference",
+      "start_date": "2024-03-15",
+      "end_date": "2024-03-17",
+      "location": "San Francisco, CA",
+      "status": "upcoming",
+      "attendee_count": 450,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+## Get an Event
+
+```
+GET /events/:id
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "evt_abc123",
+    "name": "Tech Conference 2024",
+    "description": "Annual technology conference",
+    "start_date": "2024-03-15",
+    "end_date": "2024-03-17",
+    "location": "San Francisco, CA",
+    "venue": {
+      "name": "Moscone Center",
+      "address": "747 Howard St",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "US"
+    },
+    "status": "upcoming",
+    "settings": {
+      "registration_open": true,
+      "check_in_enabled": true,
+      "exhibitor_portal": true
+    },
+    "stats": {
+      "attendees": 450,
+      "checked_in": 0,
+      "exhibitors": 25
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "updated_at": "2024-01-10T15:00:00Z"
+  }
+}
+```
+
+## Create an Event
+
+```
+POST /events
+```
+
+**Request Body:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | Yes | Event name |
+| `description` | string | No | Event description |
+| `start_date` | string | Yes | Start date (YYYY-MM-DD) |
+| `end_date` | string | Yes | End date (YYYY-MM-DD) |
+| `location` | string | No | Location description |
+| `venue` | object | No | Venue details |
+
+**Example Request:**
+
+```bash
+curl -X POST https://api.contactsolution.io/v1/events \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Product Launch 2024",
+    "description": "Launching our new product line",
+    "start_date": "2024-06-01",
+    "end_date": "2024-06-01",
+    "location": "New York, NY"
+  }'
+```
+
+## Update an Event
+
+```
+PATCH /events/:id
+```
+
+**Example Request:**
+
+```bash
+curl -X PATCH https://api.contactsolution.io/v1/events/evt_abc123 \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "description": "Updated description for the conference"
+  }'
+```
+
+## Delete an Event
+
+```
+DELETE /events/:id
+```
+
+<Callout type="warning">
+  Deleting an event also deletes all attendee cards and data.
+</Callout>
+
+## List Attendees
+
+```
+GET /events/:id/attendees
+```
+
+**Query Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `page` | integer | Page number |
+| `per_page` | integer | Items per page |
+| `checked_in` | boolean | Filter by check-in status |
+| `search` | string | Search by name or email |
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": [
+    {
+      "id": "att_xyz789",
+      "card_id": "card_def456",
+      "name": "Alice Johnson",
+      "email": "alice@company.com",
+      "company": "Company Inc",
+      "title": "Product Manager",
+      "checked_in": false,
+      "checked_in_at": null,
+      "registration_date": "2024-01-05T10:00:00Z"
+    }
+  ]
+}
+```
+
+## Bulk Import Attendees
+
+```
+POST /events/:id/attendees/import
+```
+
+Import multiple attendees from a CSV-like format.
+
+**Request Body:**
+
+```json
+{
+  "attendees": [
+    {
+      "name": "John Smith",
+      "email": "john@example.com",
+      "company": "Acme Corp",
+      "title": "CEO"
+    },
+    {
+      "name": "Jane Doe",
+      "email": "jane@techco.io",
+      "company": "TechCo",
+      "title": "CTO"
+    }
+  ],
+  "options": {
+    "skip_duplicates": true,
+    "send_invitations": false,
+    "generate_cards": true
+  }
+}
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "imported": 2,
+    "skipped": 0,
+    "errors": [],
+    "attendees": [
+      {
+        "id": "att_new001",
+        "card_id": "card_new001",
+        "name": "John Smith",
+        "email": "john@example.com"
+      },
+      {
+        "id": "att_new002",
+        "card_id": "card_new002",
+        "name": "Jane Doe",
+        "email": "jane@techco.io"
+      }
+    ]
+  }
+}
+```
+
+## Check In Attendee
+
+```
+POST /events/:id/attendees/:attendee_id/check-in
+```
+
+**Example Request:**
+
+```bash
+curl -X POST https://api.contactsolution.io/v1/events/evt_abc123/attendees/att_xyz789/check-in \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "id": "att_xyz789",
+    "checked_in": true,
+    "checked_in_at": "2024-03-15T09:30:00Z"
+  }
+}
+```
+
+## Event Statistics
+
+```
+GET /events/:id/stats
+```
+
+**Example Response:**
+
+```json
+{
+  "success": true,
+  "data": {
+    "attendees": {
+      "total": 450,
+      "checked_in": 287,
+      "check_in_rate": 63.8
+    },
+    "cards": {
+      "total_views": 1250,
+      "unique_views": 890,
+      "vcards_downloaded": 156
+    },
+    "exhibitors": {
+      "total": 25,
+      "leads_captured": 342
+    },
+    "engagement": {
+      "peak_hour": "14:00",
+      "most_viewed_card": "card_top001"
+    }
+  }
+}
+```

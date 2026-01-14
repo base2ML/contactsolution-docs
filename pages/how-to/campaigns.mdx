@@ -1,0 +1,194 @@
+# Attribution Campaigns
+
+Track your physical marketing with unique QR codes for every placement. Attribution campaigns help you understand which marketing touchpoints drive real engagement.
+
+import { Callout } from 'nextra/components'
+
+## What Are Attribution Campaigns?
+
+Attribution campaigns let you create unique, trackable QR codes for different marketing materials and placements. Instead of using one generic QR code everywhere, create specific codes for each placement to see exactly what's working.
+
+**Example:** A real estate agent creates a campaign for "123 Main St Listing" with separate QR codes for:
+- Yard sign
+- Flyer box
+- Open house sign-in
+- Mailer postcard
+
+Now they can see which placement brings the most interested buyers.
+
+## Free vs Pro
+
+| Feature | Free | Pro ($24/mo) |
+|---------|------|--------------|
+| Campaigns | 3 | Unlimited |
+| Placements per Campaign | 5 | Unlimited |
+| Total Click Count | Yes | Yes |
+| When (datetime) | - | Yes |
+| Device/Browser | - | Yes |
+| Geographic Data | - | Yes |
+| Time-of-Day Analysis | - | Yes |
+| Placement Comparison | - | Yes |
+
+## Creating a Campaign
+
+1. Go to **Dashboard** → **Campaigns**
+2. Click **New Campaign**
+3. Enter campaign details:
+   - **Name** - Descriptive name (e.g., "Spring Open House 2024")
+   - **Description** - Optional notes for your reference
+   - **Tags** - Optional labels for organizing campaigns
+
+<Callout type="tip">
+  Use clear, descriptive campaign names that include dates or identifiers. This makes it easier to compare performance across time periods.
+</Callout>
+
+## Adding Placements
+
+After creating a campaign, add placements for each unique QR code location:
+
+1. Open your campaign
+2. Click **Add Placement**
+3. Configure the placement:
+   - **Label** - Where the QR code will be placed (e.g., "Yard Sign", "Bus Shelter A")
+   - **Destination URL** - Where to redirect after scan
+   - **Category** - Optional grouping (e.g., "outdoor", "indoor", "print")
+
+### Intermediary Page Options
+
+For each placement, you can toggle an intermediary landing page:
+
+- **Show Intermediary Page** - Display a landing page before redirecting
+- **Attach Contact Card** - Show your digital business card on the landing page
+- **Custom CTA Text** - Personalize the continue button (default: "Continue")
+- **Auto-redirect Delay** - Optional countdown (0-10 seconds, 0 = click only)
+
+<Callout type="info">
+  Intermediary pages are great for high-value placements where you want to capture attention and show your contact information before visitors continue to their destination.
+</Callout>
+
+## Downloading QR Codes
+
+For each placement, you can download the QR code in multiple formats:
+
+1. Open the placement
+2. Click **Download QR**
+3. Choose size and format:
+   - **PNG** - Best for digital use
+   - **SVG** - Best for print (scalable)
+   - **Size** - 400px to 1000px
+
+<Callout type="tip">
+  For print materials, use SVG format at the highest resolution. This ensures your QR codes look crisp at any size.
+</Callout>
+
+## Viewing Campaign Stats
+
+### Free Tier
+- **Total Scans** - Aggregate count across all placements
+- **Per-Placement Totals** - See which placements are getting scanned
+
+### Pro Tier
+- **Time Series** - See scan trends over time
+- **Device Breakdown** - Mobile vs desktop percentages
+- **OS Breakdown** - iOS, Android, Windows, macOS
+- **Browser Breakdown** - Chrome, Safari, Firefox, Edge
+- **Time-of-Day Analysis** - When scans happen
+- **Placement Comparison** - Side-by-side performance metrics
+- **Geographic Data** - Where scans are coming from (via IP)
+
+## Use Case Examples
+
+### Real Estate
+
+**Campaign:** "123 Main Street Listing"
+- Placement: Yard Sign - linked to property page
+- Placement: Flyer Box - linked to virtual tour
+- Placement: Open House Sign - linked to signup form with intermediary page showing agent card
+- Placement: Postcard Mailer - linked to property page
+
+**Insight:** Discover that yard signs drive 60% of traffic, justifying premium sign placement.
+
+### Retail Store
+
+**Campaign:** "Holiday Sale 2024"
+- Placement: Window Display - linked to sale landing page
+- Placement: Receipt Insert - linked to loyalty signup
+- Placement: Shopping Bag - linked to social media
+
+**Insight:** Receipt inserts drive the most loyalty signups, informing future print runs.
+
+### Conference Booth
+
+**Campaign:** "TechConf 2024 Booth"
+- Placement: Banner Stand - linked to demo signup
+- Placement: Table Tent - linked to case study PDF
+- Placement: Badge Insert - linked to contact card with intermediary page
+
+**Insight:** Badge inserts with the intermediary page showing your card get the most engagement.
+
+### Restaurant
+
+**Campaign:** "Summer Menu Launch"
+- Placement: Table Tent - linked to full menu
+- Placement: Check Presenter - linked to review page
+- Placement: Receipt - linked to loyalty program
+
+**Insight:** Check presenter QR codes drive the most reviews when customers are satisfied.
+
+## Best Practices
+
+### Naming Conventions
+- Use clear, descriptive names
+- Include dates for time-limited campaigns
+- Be consistent across campaigns
+
+### Placement Labels
+- Be specific about location
+- Include identifiers for similar placements (e.g., "Table 1", "Table 2")
+- Use categories to group similar placement types
+
+### Intermediary Pages
+- Use for high-value touchpoints
+- Keep redirect delays short (3-5 seconds max)
+- Test both with and without to see what converts better
+
+### Analysis
+- Check stats weekly for active campaigns
+- Compare placements to identify top performers
+- Archive completed campaigns to keep your dashboard clean
+
+## Limits and Quotas
+
+### Free
+- 3 active campaigns
+- 5 placements per campaign
+- Total scan counts only
+
+### Pro ($24/mo)
+- Unlimited campaigns
+- Unlimited placements per campaign
+- Full analytics including time, device, location, trends
+
+## Upgrading
+
+If you're hitting the free tier limits, [upgrade to Pro](/features/pro) to unlock:
+- Unlimited campaigns and placements
+- Detailed analytics for each scan
+- Time-of-day and geographic insights
+- Placement comparison tools
+
+## Troubleshooting
+
+### QR Code Not Scanning
+- Ensure the QR code is printed at a large enough size
+- Check that there's sufficient contrast between foreground and background
+- Make sure the destination URL is accessible
+
+### Scans Not Appearing
+- Analytics may take up to 5 minutes to update
+- Verify the QR code links to the tracking URL (not the direct destination)
+- Check that the placement is active
+
+### Need Help?
+- **Email**: support@contactsolution.io
+- **[Pro Tier Guide](/features/pro)** - Full feature overview

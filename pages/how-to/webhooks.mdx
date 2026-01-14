@@ -1,0 +1,301 @@
+# Webhooks
+
+Receive real-time notifications when someone interacts with your card.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Webhooks are available on **Pro** tier.
+</Callout>
+
+## What Are Webhooks?
+
+Webhooks send HTTP POST requests to your server when events happen. Use them to:
+
+- Trigger custom workflows
+- Update your own systems in real-time
+- Build custom integrations
+- Log engagement to your database
+
+## Setting Up Webhooks
+
+### Create a Webhook Endpoint
+
+1. Go to **Dashboard** → **Integrations** → **Webhooks**
+2. Click **"Add Webhook"**
+3. Enter your endpoint URL (must be HTTPS)
+4. Select events to subscribe to
+5. Click **"Save"**
+
+### Test Your Webhook
+
+1. Click **"Send Test"** next to your webhook
+2. Check that your server received the payload
+3. Verify the response was 200 OK
+
+## Event Types
+
+### lead_captured
+
+Triggered when someone submits a contact form on your card. This is one of the most valuable events for sales and networking automation.
+
+```json
+{
+  "event": "lead_captured",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "data": {
+    "card": {
+      "id": "card_abc123",
+      "name": "John Smith - Sales"
+    },
+    "lead": {
+      "lead_id": "lead_xyz789",
+      "name": "Jane Doe",
+      "email": "jane@company.com",
+      "phone": "+1-555-0123",
+      "company": "Acme Corp",
+      "message": "Interested in discussing partnership opportunities",
+      "source": "contact_form",
+      "captured_at": "2024-01-15T10:30:00Z"
+    }
+  }
+}
+```
+
+<Callout type="tip">
+  Use this event to automatically add leads to your CRM, send Slack notifications, or trigger follow-up email sequences.
+</Callout>
+
+[Learn more about Lead Capture →](/how-to/lead-capture)
+
+### card.viewed
+
+Triggered when someone views your card.
+
+```json
+{
+  "event": "card.viewed",
+  "timestamp": "2024-01-15T10:30:00Z",
+  "data": {
+    "card_id": "card_abc123",
+    "card_name": "John Smith",
+    "viewer": {
+      "device_type": "mobile",
+      "browser": "Safari",
+      "os": "iOS",
+      "location": {
+        "city": "San Francisco",
+        "region": "California",
+        "country": "US"
+      }
+    },
+    "source": "qr_code",
+    "session_id": "sess_xyz789"
+  }
+}
+```
+
+### card.vcard_downloaded
+
+Triggered when someone downloads your vCard.
+
+```json
+{
+  "event": "card.vcard_downloaded",
+  "timestamp": "2024-01-15T10:32:00Z",
+  "data": {
+    "card_id": "card_abc123",
+    "card_name": "John Smith",
+    "session_id": "sess_xyz789"
+  }
+}
+```
+
+### card.wallet_added
+
+Triggered when someone adds your card to their wallet.
+
+```json
+{
+  "event": "card.wallet_added",
+  "timestamp": "2024-01-15T10:33:00Z",
+  "data": {
+    "card_id": "card_abc123",
+    "card_name": "John Smith",
+    "wallet_type": "apple_wallet",
+    "session_id": "sess_xyz789"
+  }
+}
+```
+
+### card.link_clicked
+
+Triggered when someone clicks a social link on your card.
+
+```json
+{
+  "event": "card.link_clicked",
+  "timestamp": "2024-01-15T10:35:00Z",
+  "data": {
+    "card_id": "card_abc123",
+    "link_type": "linkedin",
+    "link_url": "https://linkedin.com/in/johnsmith",
+    "session_id": "sess_xyz789"
+  }
+}
+```
+
+## Webhook Security
+
+### Signature Verification
+
+Each webhook includes a signature header to verify authenticity:
+
+```
+X-ContactSolution-Signature: sha256=abc123...
+```
+
+**Verify in Node.js:**
+```javascript
+const crypto = require('crypto');
+
+function verifySignature(payload, signature, secret) {
+  const expected = 'sha256=' +
+    crypto.createHmac('sha256', secret)
+      .update(payload)
+      .digest('hex');
+  return signature === expected;
+}
+```
+
+**Verify in Python:**
+```python
+import hmac
+import hashlib
+
+def verify_signature(payload, signature, secret):
+    expected = 'sha256=' + hmac.new(
+        secret.encode(),
+        payload.encode(),
+        hashlib.sha256
+    ).hexdigest()
+    return signature == expected
+```
+
+### Finding Your Secret
+
+1. Go to **Dashboard** → **Integrations** → **Webhooks**
+2. Click on your webhook
+3. Copy the **Signing Secret**
+
+<Callout type="warning">
+  Always verify webhook signatures to prevent spoofed requests.
+</Callout>
+
+## Handling Webhooks
+
+### Best Practices
+
+1. **Return 200 quickly** - Process async if needed
+2. **Verify signatures** - Reject unverified requests
+3. **Handle duplicates** - Use `event_id` for idempotency
+4. **Log everything** - Store payloads for debugging
+
+### Retry Policy
+
+If your endpoint doesn't return 200-299:
+
+| Attempt | Delay |
+|---------|-------|
+| 1st retry | 1 minute |
+| 2nd retry | 5 minutes |
+| 3rd retry | 30 minutes |
+| 4th retry | 2 hours |
+| 5th retry | 24 hours |
+
+After 5 failures, the webhook is disabled.
+
+## Example Integrations
+
+### Slack Notification
+
+Send a Slack message when someone views your card:
+
+```javascript
+app.post('/webhook', (req, res) => {
+  if (req.body.event === 'card.viewed') {
+    const { card_name, viewer } = req.body.data;
+
+    slack.chat.postMessage({
+      channel: '#networking',
+      text: `${card_name}'s card was viewed from ${viewer.location.city}!`
+    });
+  }
+  res.status(200).send('OK');
+});
+```
+
+### Lead to CRM
+
+Automatically add captured leads to your CRM:
+
+```javascript
+app.post('/webhook', (req, res) => {
+  if (req.body.event === 'lead_captured') {
+    const { lead, card } = req.body.data;
+
+    crm.contacts.create({
+      name: lead.name,
+      email: lead.email,
+      phone: lead.phone,
+      company: lead.company,
+      notes: `From card: ${card.name}\n\n${lead.message}`,
+      source: 'ContactSolution',
+      captured_at: lead.captured_at
+    });
+  }
+  res.status(200).send('OK');
+});
+```
+
+### Custom CRM Update
+
+Add contacts to your own database:
+
+```python
+@app.route('/webhook', methods=['POST'])
+def handle_webhook():
+    event = request.json
+
+    if event['event'] == 'card.viewed':
+        db.contacts.insert({
+            'source_card': event['data']['card_id'],
+            'device': event['data']['viewer']['device_type'],
+            'location': event['data']['viewer']['location'],
+            'viewed_at': event['timestamp']
+        })
+
+    return '', 200
+```
+
+## Troubleshooting
+
+### Webhook Not Firing
+
+1. Check webhook is enabled in dashboard
+2. Verify endpoint URL is correct
+3. Ensure HTTPS is configured properly
+4. Check for firewall blocking
+
+### Receiving 4xx/5xx Errors
+
+1. Review webhook logs in dashboard
+2. Check your server logs
+3. Verify endpoint accepts POST requests
+4. Ensure JSON parsing is enabled
+
+### Missing Events
+
+1. Confirm you're subscribed to that event type
+2. Check webhook wasn't disabled from failures
+3. Review retry queue in dashboard

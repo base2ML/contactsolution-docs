@@ -1,0 +1,123 @@
+# Authentication
+
+Secure your API requests with Bearer tokens.
+
+## Getting Your API Key
+
+1. Log in to your **Dashboard**
+2. Go to **Settings** → **API**
+3. Click **"Generate API Key"**
+4. Copy and securely store your key
+
+import { Callout } from 'nextra/components'
+
+<Callout type="warning">
+  API keys are shown only once. Store them securely - you cannot retrieve them later.
+</Callout>
+
+## Using Your API Key
+
+Include the key in the `Authorization` header:
+
+```bash
+curl https://api.contactsolution.io/v1/cards \
+  -H "Authorization: Bearer cs_live_abc123xyz..."
+```
+
+## Key Formats
+
+| Environment | Prefix | Example |
+|-------------|--------|---------|
+| Production | `cs_live_` | `cs_live_abc123...` |
+| Test | `cs_test_` | `cs_test_xyz789...` |
+
+Test keys work with sandbox data and don't affect production.
+
+## Key Permissions
+
+API keys have full access to your account. To limit scope:
+
+1. Go to **Settings** → **API** → **Your Key**
+2. Click **"Edit Permissions"**
+3. Select allowed operations
+
+| Permission | Description |
+|------------|-------------|
+| `cards:read` | View cards |
+| `cards:write` | Create/update cards |
+| `events:read` | View events |
+| `events:write` | Create/manage events |
+| `analytics:read` | View analytics |
+| `webhooks:manage` | Configure webhooks |
+
+## Rotating Keys
+
+To rotate your API key:
+
+1. Generate a new key
+2. Update your applications
+3. Delete the old key
+
+<Callout type="tip">
+  Create a new key before deleting the old one to avoid downtime.
+</Callout>
+
+## Security Best Practices
+
+### Do
+- Store keys in environment variables
+- Use secrets managers (AWS Secrets Manager, HashiCorp Vault)
+- Rotate keys periodically
+- Use test keys for development
+
+### Don't
+- Commit keys to version control
+- Share keys via email or chat
+- Use production keys in development
+- Expose keys in client-side code
+
+## Example: Environment Variables
+
+**Node.js:**
+```javascript
+const apiKey = process.env.CONTACTSOLUTION_API_KEY;
+
+fetch('https://api.contactsolution.io/v1/cards', {
+  headers: {
+    'Authorization': `Bearer ${apiKey}`
+  }
+});
+```
+
+**Python:**
+```python
+import os
+import requests
+
+api_key = os.environ.get('CONTACTSOLUTION_API_KEY')
+
+response = requests.get(
+    'https://api.contactsolution.io/v1/cards',
+    headers={'Authorization': f'Bearer {api_key}'}
+)
+```
+
+## Error Codes
+
+| Code | Status | Description |
+|------|--------|-------------|
+| `unauthorized` | 401 | Missing or invalid API key |
+| `forbidden` | 403 | Key lacks required permissions |
+| `rate_limited` | 429 | Too many requests |
+
+### Example Error Response
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "unauthorized",
+    "message": "Invalid API key provided"
+  }
+}
+```

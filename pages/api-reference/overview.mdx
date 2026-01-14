@@ -1,0 +1,153 @@
+# API Overview
+
+Build custom integrations with the ContactSolution REST API.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  API access is available for **Pro** tier only.
+</Callout>
+
+## Base URL
+
+```
+https://api.contactsolution.io/v1
+```
+
+## Authentication
+
+All API requests require a Bearer token:
+
+```bash
+curl https://api.contactsolution.io/v1/cards \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+[Get your API key →](/api/authentication)
+
+## Response Format
+
+All responses are JSON:
+
+```json
+{
+  "success": true,
+  "data": { ... },
+  "meta": {
+    "request_id": "req_abc123",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+### Error Responses
+
+```json
+{
+  "success": false,
+  "error": {
+    "code": "invalid_request",
+    "message": "Card ID is required",
+    "details": {}
+  },
+  "meta": {
+    "request_id": "req_abc123",
+    "timestamp": "2024-01-15T10:30:00Z"
+  }
+}
+```
+
+## Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/cards` | List all cards |
+| POST | `/cards` | Create a card |
+| GET | `/cards/:id` | Get a card |
+| PATCH | `/cards/:id` | Update a card |
+| DELETE | `/cards/:id` | Delete a card |
+| GET | `/cards/:id/analytics` | Get card analytics |
+| GET | `/events` | List events |
+| POST | `/events` | Create an event |
+| GET | `/events/:id/attendees` | List attendees |
+| POST | `/events/:id/attendees` | Bulk import attendees |
+
+## Rate Limits
+
+| Tier | Requests/Minute |
+|------|-----------------|
+| Pro | 1000 |
+
+Rate limit headers are included in responses:
+
+```
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 999
+X-RateLimit-Reset: 1705318200
+```
+
+## Pagination
+
+List endpoints support pagination:
+
+```
+GET /cards?page=2&per_page=50
+```
+
+Response includes pagination metadata:
+
+```json
+{
+  "data": [...],
+  "meta": {
+    "pagination": {
+      "current_page": 2,
+      "per_page": 50,
+      "total_pages": 5,
+      "total_count": 237
+    }
+  }
+}
+```
+
+## Quick Start
+
+### 1. Get Your API Key
+
+Go to **Dashboard** → **Settings** → **API** and generate a key.
+
+### 2. Test Your Connection
+
+```bash
+curl https://api.contactsolution.io/v1/cards \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+### 3. Create a Card
+
+```bash
+curl -X POST https://api.contactsolution.io/v1/cards \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Smith",
+    "email": "john@example.com",
+    "title": "CEO",
+    "company": "Acme Corp"
+  }'
+```
+
+## SDKs
+
+Official SDKs coming soon:
+- Node.js
+- Python
+- Ruby
+
+For now, use any HTTP client to interact with the API.
+
+## Support
+
+For API support:
+- **Email**: api@contactsolution.io
+- **Documentation Issues**: Open a GitHub issue

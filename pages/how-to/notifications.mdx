@@ -1,0 +1,131 @@
+# Notifications
+
+Stay informed about card activity with real-time notifications.
+
+import { Callout } from 'nextra/components'
+
+## Overview
+
+The Notifications Center keeps you updated on important events related to your digital cards. Get alerted when someone scans your card, saves your contact, or triggers other significant actions.
+
+## Notification Types
+
+### Card Activity
+- **Card Scanned** - Someone viewed your QR code
+- **Contact Saved** - Your vCard was downloaded
+- **Link Clicked** - A social/website link was tapped
+- **Wallet Added** - Card added to Apple/Google Wallet
+
+### Connection Activity
+- **New Connection** - Someone connected with you
+- **Connection Update** - A contact updated their info
+- **Mutual Connection** - You both saved each other
+
+### System Notifications
+- **Feature Updates** - New platform features
+- **Security Alerts** - Account security events
+- **Billing** - Subscription and payment updates
+
+## Notification Channels
+
+Configure how you receive notifications:
+
+| Channel | Best For |
+|---------|----------|
+| **In-App** | Non-urgent updates, browsing history |
+| **Email** | Daily/weekly digests, important alerts |
+| **Push** | Real-time alerts (mobile app) |
+| **SMS** | Critical alerts only |
+
+## Managing Notifications
+
+### Access Settings
+1. Go to **Dashboard** → **Notifications**
+2. Click the settings icon
+3. Configure preferences by type and channel
+
+### Notification Preferences
+
+```
+Card Activity
+├── Card Scanned: In-App, Push
+├── Contact Saved: In-App, Email
+├── Link Clicked: In-App only
+└── Wallet Added: In-App, Email
+
+Connection Activity
+├── New Connection: All channels
+├── Connection Update: In-App only
+└── Mutual Connection: In-App, Push
+
+System
+├── Feature Updates: Email (weekly)
+├── Security Alerts: All channels
+└── Billing: Email only
+```
+
+## Notification Center Features
+
+### Filtering
+- **All** - See everything
+- **Unread** - New notifications only
+- **Card Activity** - Scan and engagement events
+- **Connections** - Network updates
+
+### Actions
+- **Mark as Read** - Dismiss notification
+- **Mark All Read** - Clear all unread
+- **Delete** - Remove from history
+- **Snooze** - Temporarily pause type
+
+### Time Grouping
+Notifications are organized by:
+- Today
+- Yesterday
+- This Week
+- Earlier
+
+## Email Digest Options
+
+Control email frequency:
+
+| Option | Description |
+|--------|-------------|
+| **Real-time** | Immediate emails for each event |
+| **Daily Digest** | Summary every morning |
+| **Weekly Digest** | Summary every Monday |
+| **None** | In-app only |
+
+## Push Notifications
+
+<Callout type="info">
+  Push notifications require the mobile app or browser notification permissions.
+</Callout>
+
+### Enable Browser Notifications
+1. Click the bell icon in the header
+2. Allow notifications when prompted
+3. Configure which events trigger push
+
+### Mobile App
+Push notifications work automatically when the app is installed and notifications are enabled in device settings.
+
+## Quiet Hours
+
+Set times when you don't want to be disturbed:
+
+1. Go to Notification Settings
+2. Enable **Quiet Hours**
+3. Set start and end times
+4. Choose days of week
+
+During quiet hours:
+- Push notifications are silenced
+- Notifications still appear in-app
+- Critical security alerts bypass quiet hours
+
+## Related
+
+- [Analytics](/how-to/analytics) - See detailed card activity
+- [Webhooks](/how-to/webhooks) - Trigger external actions
+- [Campaigns](/how-to/campaigns) - Automated follow-ups

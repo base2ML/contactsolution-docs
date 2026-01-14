@@ -1,0 +1,168 @@
+# Team Settings
+
+Manage your team members, roles, and collaborative features.
+
+import { Callout } from 'nextra/components'
+
+<Callout type="info">
+  Team features are available on Pro tier for organizations.
+</Callout>
+
+## Overview
+
+Team Settings allow you to manage multiple users under a single organization account. Control permissions, share cards across the team, and maintain consistent branding across all team members.
+
+## Team Dashboard
+
+Access team settings at **Dashboard** → **Team** → **Settings**. The dashboard shows:
+
+- Team member list
+- Role assignments
+- Invitation status
+- Activity overview
+
+## Team Roles
+
+### Admin
+Full access to all team features:
+- Manage team members
+- Configure billing
+- Set organization branding
+- Access all analytics
+- Manage integrations
+
+### Manager
+Team oversight capabilities:
+- Invite new members
+- View team analytics
+- Manage card templates
+- Cannot access billing
+
+### Member
+Standard team member:
+- Create personal cards
+- Use team templates
+- View own analytics
+- Cannot manage team
+
+## Inviting Team Members
+
+1. Go to **Team** → **Settings**
+2. Click **Invite Member**
+3. Enter email address(es)
+4. Select role
+5. Click **Send Invitation**
+
+Invitations expire after 7 days. Pending invitations appear in the team list.
+
+## Managing Members
+
+### Edit Member
+- Click the menu icon on a member row
+- Select **Edit**
+- Change role or permissions
+- Click **Save**
+
+### Remove Member
+- Click the menu icon
+- Select **Remove**
+- Confirm removal
+- Member loses access immediately
+
+<Callout type="warning">
+  Removing a member does not delete their cards. Cards can be transferred or archived.
+</Callout>
+
+## Organization Branding
+
+### Brand Settings
+Configure organization-wide branding:
+
+| Setting | Description |
+|---------|-------------|
+| **Logo** | Displayed on all team cards |
+| **Primary Color** | Brand color for cards |
+| **Company Name** | Organization display name |
+| **Domain** | Custom URL (Enterprise plans) |
+
+### Card Templates
+Create standardized templates for the team:
+
+1. Design a card with your branding
+2. Click **Save as Template**
+3. Enable for team use
+4. Members can use as starting point
+
+## Team Analytics
+
+View aggregated team metrics:
+
+- Total cards created
+- Combined scan count
+- Top performing cards
+- Team activity timeline
+
+### Export Team Data
+Download team analytics:
+- CSV export
+- Date range selection
+- Filter by member or card
+
+## Single Sign-On (SSO)
+
+<Callout type="info">
+  SSO is available on Enterprise plans. Contact sales for details.
+</Callout>
+
+Configure SSO for your organization:
+
+1. Go to **Team** → **Settings** → **SSO**
+2. Select your identity provider
+3. Enter SSO configuration details
+4. Test connection
+5. Enable for team
+
+Supported providers:
+- Okta
+- Azure AD
+- Google Workspace
+- SAML 2.0 generic
+
+## Billing & Seats
+
+### Seat Management
+- View current seat usage
+- Add/remove seats
+- Per-seat billing on Pro tier
+
+### Upgrading
+To add more team features:
+1. Go to **Team** → **Settings** → **Billing**
+2. View current plan
+3. Click **Upgrade**
+4. Select new plan
+
+## Security Settings
+
+### Two-Factor Authentication
+- Require 2FA for team members
+- View 2FA status per member
+- Reset member 2FA if needed
+
+### Session Management
+- View active sessions
+- Force logout for members
+- Set session timeout
+
+### Audit Log
+Track team activity:
+- Member logins
+- Card changes
+- Settings modifications
+- Data exports
+
+## Related
+
+- [Pro Features](/features/pro) - All Pro tier features
+- [Integrations](/how-to/integrations) - Connect team tools
+- [Webhooks](/how-to/webhooks) - Automate team workflows
